@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KR3 Simulation-First Cell</title>
+<meta name="description" content="A simulation-first ROS 2 cell for the KUKA KR 3 R540: one code base on a mock arm, Gazebo physics, an RSI protocol simulator and the real controller.">
+<style>
+:root { color-scheme: light dark; --muted: #5b6370; --line: #d9dde3; --card: #f6f7f9; }
+@media (prefers-color-scheme: dark) { :root { --muted: #a3abb7; --line: #3a3f47; --card: #1c1f24; } }
+body { font-family: system-ui, sans-serif; max-width: 52rem; margin: 3rem auto; padding: 0 1rem; line-height: 1.55; }
+h1 { margin-bottom: .2rem; }
+.lead { color: var(--muted); margin-top: 0; }
+figure { margin: 1.5rem 0; }
+figure img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+figcaption { color: var(--muted); font-size: .9rem; margin-top: .4rem; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 1rem 0; }
+th, td { border-bottom: 1px solid var(--line); padding: .45rem .5rem; text-align: left; vertical-align: top; }
+th { font-weight: 600; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+.note { background: var(--card); border-radius: 6px; padding: .8rem 1rem; font-size: .95rem; }
+footer { color: var(--muted); font-size: .85rem; margin-top: 3rem; }
+</style>
+</head>
+<body>
+<h1>KR3 simulation-first cell</h1>
+<p class="lead">Samarth Bankar · Ahmedabad University robotics lab · status of 8 November 2026</p>
+
+<p>A ROS 2 (Humble) cell for a KUKA KR 3 R540 industrial arm and its KR C4 controller, built so
+that the same application code runs on four levels by changing one launch argument: a mock arm
+(L0), Gazebo physics (L1), a simulator of the controller's RSI real-time protocol (L2) and the real
+controller (L3). Every motion is gated by a safety supervisor, every run is recorded and filed
+with the commit that produced it. All code is C++ and C.</p>
+
+<figure>
+  <img src="kr3/l1_conveyor.gif" alt="Gazebo (left) and RViz (right) side by side: the arm takes parts off a conveyor belt and stacks them on a pallet; RViz shows the supervisor mode MOVING.">
+  <figcaption>Physics level (L1): Gazebo on the left, RViz on the right. The arm picks eight parts
+  from a conveyor belt and stacks them 2&times;2&times;2 on a pallet; RViz shows the safety
+  supervisor's mode above the cell.</figcaption>
+</figure>
+
+<h2>Where it stands</h2>
+<table>
+  <tr><th>Level</th><th>Status</th></tr>
+  <tr><td>L0 mock arm</td><td>done: pick-and-place, palletizing, conveyor picking, welding, dispensing, teleoperation</td></tr>
+  <tr><td>L1 Gazebo physics</td><td>done: the same applications with parts as physical bodies; explicit servo model</td></tr>
+  <tr><td>L2 RSI protocol</td><td>done: own real-time protocol driver against a controller simulator, 4 ms cycle, fault handling</td></tr>
+  <tr><td>L3 real controller</td><td>next: battery and mastering, network, controller configuration, then shadow mode and first motion</td></tr>
+</table>
+
+<h2>Results</h2>
+<p>Four simulation campaigns; the latest (C04) ran every application and two injected faults on
+all three simulated levels on one software version: <strong>23 of 23 runs valid</strong>.</p>
+<table>
+  <tr><th></th><th>L0 mock</th><th>L1 physics</th><th>L2 protocol</th></tr>
+  <tr><td>randomized picks</td><td>50/50</td><td>50/50 (+50/50)</td><td>50/50</td></tr>
+  <tr><td>mean pick cycle</td><td>12.61 s</td><td>12.60 s</td><td>12.62 s</td></tr>
+  <tr><td>pallet blocks, conveyor parts</td><td>8/8, 8/8</td><td>8/8, 8/8</td><td>8/8, 8/8</td></tr>
+  <tr><td>weld path deviation (RMS)</td><td>&le; 0.0021 mm</td><td>&le; 0.0018 mm</td><td>&le; 0.0020 mm</td></tr>
+  <tr><td>stop after an operator disarm (max)</td><td>12 ms</td><td>8 ms</td><td>13 ms</td></tr>
+  <tr><td>silent driver detected after</td><td>0.51 s</td><td>0.51 s</td><td>0.51 s</td></tr>
+</table>
+
+<div class="grid">
+  <figure>
+    <img src="kr3/servo_lag.svg" alt="Bar chart: tracking error per joint at L1, about 0.95 degrees with Gazebo's default servo and 0.19 degrees with the explicit servo model.">
+    <figcaption>The physics level first measured Gazebo, not the robot: a hidden 40 ms servo lag.
+    An explicit 8 ms servo model cut the tracking error five-fold; the real arm's value replaces
+    it once measured.</figcaption>
+  </figure>
+  <figure>
+    <img src="kr3/conveyor_cycles.svg" alt="Line chart: conveyor cycle time per part; the old physics run grows from 10.7 to 16.1 s, the corrected runs stay at 12.5 to 13 s on all levels.">
+    <figcaption>Physics time is not wall time: cycle times grew as the simulator slowed down while
+    parts piled up. On simulated time all three levels agree within 0.03 s per part.</figcaption>
+  </figure>
+</div>
+
+<figure>
+  <img src="kr3/disarm_distance.svg" alt="Bar chart: stop distance after an operator disarm while the base axis moves at 0.5 rad/s, at most 0.24 degrees on every level.">
+  <figcaption>Operator disarm while the base axis turns at 0.5 rad/s: the arm stops within
+  0.24&deg; on every level. These are the simulated bounds the real controller's own stop is
+  compared with.</figcaption>
+</figure>
+
+<p class="note">The 4 ms control loop held a 99th-percentile jitter of 0.26 ms over 10 minutes on
+the cell computer, inside the 1 ms requirement for running against the real controller.</p>
+
+<footer>
+  <p>Simulation results only; nothing on this page has run on the real arm yet. The KUKA safety
+  controller, emergency stop and enabling switch remain the last line of defence.</p>
+  <p><a href="index.html">KR3 Lab Data Sync</a> · <a href="privacy.html">Privacy policy</a></p>
+</footer>
+</body>
+</html>

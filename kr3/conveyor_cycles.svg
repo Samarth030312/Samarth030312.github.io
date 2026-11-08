@@ -1,0 +1,84 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='937' height='510' viewBox='0 0 937 510' font-family='Helvetica, Arial, sans-serif' font-size='13'>
+<rect width='100%' height='100%' fill='#ffffff'/>
+<text x='80' y='28' font-size='16' font-weight='bold'>Conveyor: cycle time per part</text>
+<line x1='80' x2='680' y1='410' y2='410' stroke='#e5e5e5'/>
+<text x='72' y='414' text-anchor='end' fill='#333'>10</text>
+<line x1='80' x2='680' y1='358.571' y2='358.571' stroke='#e5e5e5'/>
+<text x='72' y='362.571' text-anchor='end' fill='#333'>11</text>
+<line x1='80' x2='680' y1='307.143' y2='307.143' stroke='#e5e5e5'/>
+<text x='72' y='311.143' text-anchor='end' fill='#333'>12</text>
+<line x1='80' x2='680' y1='255.714' y2='255.714' stroke='#e5e5e5'/>
+<text x='72' y='259.714' text-anchor='end' fill='#333'>13</text>
+<line x1='80' x2='680' y1='204.286' y2='204.286' stroke='#e5e5e5'/>
+<text x='72' y='208.286' text-anchor='end' fill='#333'>14</text>
+<line x1='80' x2='680' y1='152.857' y2='152.857' stroke='#e5e5e5'/>
+<text x='72' y='156.857' text-anchor='end' fill='#333'>15</text>
+<line x1='80' x2='680' y1='101.429' y2='101.429' stroke='#e5e5e5'/>
+<text x='72' y='105.429' text-anchor='end' fill='#333'>16</text>
+<line x1='80' x2='680' y1='50' y2='50' stroke='#e5e5e5'/>
+<text x='72' y='54' text-anchor='end' fill='#333'>17</text>
+<line x1='80' x2='80' y1='410' y2='415' stroke='#333'/>
+<text x='80' y='430' text-anchor='middle' fill='#333'>1</text>
+<line x1='165.714' x2='165.714' y1='410' y2='415' stroke='#333'/>
+<text x='165.714' y='430' text-anchor='middle' fill='#333'>2</text>
+<line x1='251.429' x2='251.429' y1='410' y2='415' stroke='#333'/>
+<text x='251.429' y='430' text-anchor='middle' fill='#333'>3</text>
+<line x1='337.143' x2='337.143' y1='410' y2='415' stroke='#333'/>
+<text x='337.143' y='430' text-anchor='middle' fill='#333'>4</text>
+<line x1='422.857' x2='422.857' y1='410' y2='415' stroke='#333'/>
+<text x='422.857' y='430' text-anchor='middle' fill='#333'>5</text>
+<line x1='508.571' x2='508.571' y1='410' y2='415' stroke='#333'/>
+<text x='508.571' y='430' text-anchor='middle' fill='#333'>6</text>
+<line x1='594.286' x2='594.286' y1='410' y2='415' stroke='#333'/>
+<text x='594.286' y='430' text-anchor='middle' fill='#333'>7</text>
+<line x1='680' x2='680' y1='410' y2='415' stroke='#333'/>
+<text x='680' y='430' text-anchor='middle' fill='#333'>8</text>
+<rect x='80' y='50' width='600' height='360' fill='none' stroke='#333'/>
+<text x='380' y='458' text-anchor='middle'>part</text>
+<text transform='translate(22,230) rotate(-90)' text-anchor='middle'>cycle time [s]</text>
+<circle cx='80' cy='374.447' r='3.5' fill='#0072B2'><title>L0 (1, 10.6913)</title></circle>
+<circle cx='165.714' cy='263.691' r='3.5' fill='#0072B2'><title>L0 (2, 12.8449)</title></circle>
+<circle cx='251.429' cy='255.025' r='3.5' fill='#0072B2'><title>L0 (3, 13.0134)</title></circle>
+<circle cx='337.143' cy='262.652' r='3.5' fill='#0072B2'><title>L0 (4, 12.8651)</title></circle>
+<circle cx='422.857' cy='271.925' r='3.5' fill='#0072B2'><title>L0 (5, 12.6848)</title></circle>
+<circle cx='508.571' cy='277.669' r='3.5' fill='#0072B2'><title>L0 (6, 12.5731)</title></circle>
+<circle cx='594.286' cy='266.813' r='3.5' fill='#0072B2'><title>L0 (7, 12.7842)</title></circle>
+<circle cx='680' cy='274.671' r='3.5' fill='#0072B2'><title>L0 (8, 12.6314)</title></circle>
+<path d='M80.0,374.4 L165.7,263.7 L251.4,255.0 L337.1,262.7 L422.9,271.9 L508.6,277.7 L594.3,266.8 L680.0,274.7 ' fill='none' stroke='#0072B2' stroke-width='2'/>
+<rect x='696' y='60' width='14' height='14' fill='#0072B2'/>
+<text x='716' y='72'>L0</text>
+<circle cx='80' cy='372.961' r='3.5' fill='#E69F00'><title>L1 before #24 (C02; wall clock) (1, 10.7202)</title></circle>
+<circle cx='165.714' cy='248.504' r='3.5' fill='#E69F00'><title>L1 before #24 (C02; wall clock) (2, 13.1402)</title></circle>
+<circle cx='251.429' cy='218.619' r='3.5' fill='#E69F00'><title>L1 before #24 (C02; wall clock) (3, 13.7213)</title></circle>
+<circle cx='337.143' cy='206.852' r='3.5' fill='#E69F00'><title>L1 before #24 (C02; wall clock) (4, 13.9501)</title></circle>
+<circle cx='422.857' cy='194.591' r='3.5' fill='#E69F00'><title>L1 before #24 (C02; wall clock) (5, 14.1885)</title></circle>
+<circle cx='508.571' cy='151.247' r='3.5' fill='#E69F00'><title>L1 before #24 (C02; wall clock) (6, 15.0313)</title></circle>
+<circle cx='594.286' cy='108.906' r='3.5' fill='#E69F00'><title>L1 before #24 (C02; wall clock) (7, 15.8546)</title></circle>
+<circle cx='680' cy='95.0669' r='3.5' fill='#E69F00'><title>L1 before #24 (C02; wall clock) (8, 16.1237)</title></circle>
+<path d='M80.0,373.0 L165.7,248.5 L251.4,218.6 L337.1,206.9 L422.9,194.6 L508.6,151.2 L594.3,108.9 L680.0,95.1 ' fill='none' stroke='#E69F00' stroke-width='2'/>
+<rect x='696' y='82' width='14' height='14' fill='#E69F00'/>
+<text x='716' y='94'>L1 before #24 (C02; wall clock)</text>
+<circle cx='80' cy='375.131' r='3.5' fill='#009E73'><title>L1 (1, 10.678)</title></circle>
+<circle cx='165.714' cy='265.023' r='3.5' fill='#009E73'><title>L1 (2, 12.819)</title></circle>
+<circle cx='251.429' cy='255.354' r='3.5' fill='#009E73'><title>L1 (3, 13.007)</title></circle>
+<circle cx='337.143' cy='266.206' r='3.5' fill='#009E73'><title>L1 (4, 12.796)</title></circle>
+<circle cx='422.857' cy='275.309' r='3.5' fill='#009E73'><title>L1 (5, 12.619)</title></circle>
+<circle cx='508.571' cy='280.811' r='3.5' fill='#009E73'><title>L1 (6, 12.512)</title></circle>
+<circle cx='594.286' cy='271.297' r='3.5' fill='#009E73'><title>L1 (7, 12.697)</title></circle>
+<circle cx='680' cy='281.686' r='3.5' fill='#009E73'><title>L1 (8, 12.495)</title></circle>
+<path d='M80.0,375.1 L165.7,265.0 L251.4,255.4 L337.1,266.2 L422.9,275.3 L508.6,280.8 L594.3,271.3 L680.0,281.7 ' fill='none' stroke='#009E73' stroke-width='2'/>
+<rect x='696' y='104' width='14' height='14' fill='#009E73'/>
+<text x='716' y='116'>L1</text>
+<circle cx='80' cy='374.18' r='3.5' fill='#D55E00'><title>L2 (1, 10.6965)</title></circle>
+<circle cx='165.714' cy='264.226' r='3.5' fill='#D55E00'><title>L2 (2, 12.8345)</title></circle>
+<circle cx='251.429' cy='254.501' r='3.5' fill='#D55E00'><title>L2 (3, 13.0236)</title></circle>
+<circle cx='337.143' cy='263.135' r='3.5' fill='#D55E00'><title>L2 (4, 12.8557)</title></circle>
+<circle cx='422.857' cy='272.47' r='3.5' fill='#D55E00'><title>L2 (5, 12.6742)</title></circle>
+<circle cx='508.571' cy='277.659' r='3.5' fill='#D55E00'><title>L2 (6, 12.5733)</title></circle>
+<circle cx='594.286' cy='266.926' r='3.5' fill='#D55E00'><title>L2 (7, 12.782)</title></circle>
+<circle cx='680' cy='275.561' r='3.5' fill='#D55E00'><title>L2 (8, 12.6141)</title></circle>
+<path d='M80.0,374.2 L165.7,264.2 L251.4,254.5 L337.1,263.1 L422.9,272.5 L508.6,277.7 L594.3,266.9 L680.0,275.6 ' fill='none' stroke='#D55E00' stroke-width='2'/>
+<rect x='696' y='126' width='14' height='14' fill='#D55E00'/>
+<text x='716' y='138'>L2</text>
+<text x='80' y='496' font-size='11' fill='#555'>C02 E321 r1 vs C04 E521; report.cycles[].cycle_time_s in conveyor_pick_summary.json</text>
+</svg>
