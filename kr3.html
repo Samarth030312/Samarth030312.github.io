@@ -24,7 +24,7 @@ footer { color: var(--muted); font-size: .85rem; margin-top: 3rem; }
 </head>
 <body>
 <h1>KR3 simulation-first cell</h1>
-<p class="lead">Samarth Bankar · Ahmedabad University robotics lab · status of 8 November 2026</p>
+<p class="lead">Samarth Bankar · Ahmedabad University robotics lab · status of 9 November 2026</p>
 
 <p>A ROS 2 (Humble) cell for a KUKA KR 3 R540 industrial arm and its KR C4 controller, built so
 that the same application code runs on four levels by changing one launch argument: a mock arm
@@ -45,10 +45,44 @@ with the commit that produced it. All code is C++ and C.</p>
   <tr><td>L0 mock arm</td><td>done: pick-and-place, palletizing, conveyor picking, welding, dispensing, teleoperation</td></tr>
   <tr><td>L1 Gazebo physics</td><td>done: the same applications with parts as physical bodies; explicit servo model</td></tr>
   <tr><td>L2 RSI protocol</td><td>done: own real-time protocol driver against a controller simulator, 4 ms cycle, fault handling</td></tr>
-  <tr><td>L3 real controller</td><td>next: battery and mastering, network, controller configuration, then shadow mode and first motion</td></tr>
+  <tr><td>L3 real controller</td><td><strong>running</strong>: the real controller in the loop, first motion, fault stops on the real arm, automatic-mode data campaigns behind the cell's safeguard</td></tr>
+  <tr><td>L4 real gripper</td><td>next: gripper selection and integration</td></tr>
 </table>
 
-<h2>Results</h2>
+<h2>On the real arm (9 November 2026)</h2>
+<p>The real controller ran in the loop for the first time: first with the operator holding the
+enabling switch, then in automatic mode behind the cell's safety guard, with the arm driven only
+by small real-time corrections from the cell computer inside a limited range around its home
+position.</p>
+<table>
+  <tr><th>Test</th><th>Result</th></tr>
+  <tr><td>robot model vs the controller's own position display, 20 poses</td><td>0.009 mm, 0.008&deg; (requirement 1 mm, 0.1&deg;)</td></tr>
+  <tr><td>moves driven from the cell computer</td><td>about 760, every one within 0.0021&deg; of its target</td></tr>
+  <tr><td>real-time packets exchanged (4 ms cycle)</td><td>about 830&nbsp;000, none missed</td></tr>
+  <tr><td>stop after an operator disarm, real arm</td><td>34 ms at 0.05 rad/s, 56 ms at 0.2 rad/s</td></tr>
+  <tr><td>silent software detected and stopped, real arm</td><td>0.10&ndash;0.12 s, every time</td></tr>
+</table>
+
+<div class="grid">
+  <figure>
+    <img src="kr3/twin_vs_real.svg" alt="Bar chart per axis: tracking error while moving is about 0.16 degrees on the real arm, about 0.165 degrees for the corrected digital twin and about 0.02 degrees for the old twin.">
+    <figcaption>The real arm follows every command about 31 ms late, the same on all six axes,
+    speeds and loads. With that delay identified from the recordings, the digital twin tracks like
+    the real arm: within 0.007&deg; on sessions it was not fitted to, 15&ndash;35 times closer than
+    before.</figcaption>
+  </figure>
+  <figure>
+    <img src="kr3/p1_fk_errors.svg" alt="Bar chart: position and orientation error for 20 poses, all below 0.01 millimetres and 0.01 degrees.">
+    <figcaption>The robot model against the controller on 20 poses spread over the whole base-axis
+    range: every error is at the display's resolution.</figcaption>
+  </figure>
+</div>
+
+<p class="note">Simulation found the problem that would have stopped the first real session: the
+1 kHz control loop silently ran on a fixed 4 ms grid, and with a controller clock only 50 ppm off,
+the real-time link failed after 30 s. It was fixed and proven in simulation the night before.</p>
+
+<h2>Simulation results</h2>
 <p>Four simulation campaigns; the latest (C04) ran every application and two injected faults on
 all three simulated levels on one software version: <strong>23 of 23 runs valid</strong>.</p>
 <table>
@@ -65,8 +99,8 @@ all three simulated levels on one software version: <strong>23 of 23 runs valid<
   <figure>
     <img src="kr3/servo_lag.svg" alt="Bar chart: tracking error per joint at L1, about 0.95 degrees with Gazebo's default servo and 0.19 degrees with the explicit servo model.">
     <figcaption>The physics level first measured Gazebo, not the robot: a hidden 40 ms servo lag.
-    An explicit 8 ms servo model cut the tracking error five-fold; the real arm's value replaces
-    it once measured.</figcaption>
+    An explicit 8 ms servo model cut the tracking error five-fold; the real arm's measured delay
+    (above) now replaces it, step by step.</figcaption>
   </figure>
   <figure>
     <img src="kr3/conveyor_cycles.svg" alt="Line chart: conveyor cycle time per part; the old physics run grows from 10.7 to 16.1 s, the corrected runs stay at 12.5 to 13 s on all levels.">
@@ -78,16 +112,13 @@ all three simulated levels on one software version: <strong>23 of 23 runs valid<
 <figure>
   <img src="kr3/disarm_distance.svg" alt="Bar chart: stop distance after an operator disarm while the base axis moves at 0.5 rad/s, at most 0.24 degrees on every level.">
   <figcaption>Operator disarm while the base axis turns at 0.5 rad/s: the arm stops within
-  0.24&deg; on every level. These are the simulated bounds the real controller's own stop is
-  compared with.</figcaption>
+  0.24&deg; on every level. On the real arm the same stop takes longer (the controller's own
+  braking ramp): see the table above.</figcaption>
 </figure>
 
-<p class="note">The 4 ms control loop held a 99th-percentile jitter of 0.26 ms over 10 minutes on
-the cell computer, inside the 1 ms requirement for running against the real controller.</p>
-
 <footer>
-  <p>Simulation results only; nothing on this page has run on the real arm yet. The KUKA safety
-  controller, emergency stop and enabling switch remain the last line of defence.</p>
+  <p>The KUKA safety controller, emergency stop, enabling switch and the cell's safety guard remain
+  the last line of defence; nothing here bypasses them.</p>
   <p><a href="index.html">KR3 Lab Data Sync</a> · <a href="privacy.html">Privacy policy</a></p>
 </footer>
 </body>
